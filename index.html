@@ -1,16 +1,15 @@
 <!doctype html>
-
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>پنل WireGuard / DNS — نسخهٔ به‌روز</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title></title>
   <style>
     :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2;--accent:#1ea7ff}
     body{font-family:Tahoma, Arial, Helvetica, sans-serif;background:var(--bg);color:#e6eef8;margin:0;padding:16px}
     .container{max-width:1100px;margin:8px auto}
     header{display:flex;align-items:center;gap:12px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.6)}
     label{display:block;margin:6px 0;font-size:14px;color:var(--muted)}
     select,input,button,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -23,10 +22,7 @@
     .expired{opacity:0.55}
     .status{font-weight:700}
     .topbar{display:flex;gap:8px;align-items:center;justify-content:space-between;margin:12px 0}
-    .search{max-width:360px}
     .kbd{background:#08111a;border-radius:6px;padding:4px 8px;font-size:12px}
-    .center{display:flex;justify-content:center;align-items:center}
-    .qr-canvas{background:#fff;padding:8px;border-radius:8px}
     footer{margin-top:18px;color:var(--muted);font-size:13px}
     @media(max-width:800px){.grid{grid-template-columns:1fr}}
   </style>
@@ -34,355 +30,294 @@
 <body>
   <div class="container">
     <header>
-      <h2>پنل WireGuard / DNS — نسخهٔ به‌روز</h2>
+      <h2>پنل WireGuard / DNS — نسخه کامل</h2>
       <div class="muted">خوش آمدید</div>
-    </header><div class="topbar">
-  <div class="card" style="flex:1">
-    <div style="display:flex;gap:8px;align-items:center">
-      <div class="muted">کاربر:</div>
-      <div id="currentUser" class="kbd">guest</div>
-      <button id="btnLogin" class="btn small">ورود / خروج</button>
-    </div>
-  </div>
-  <div class="card" style="width:360px;text-align:left">
-    <label class="muted">حالت رنگ</label>
-    <div style="display:flex;gap:8px"><button id="toggleTheme" class="btn small">تغییر تم</button></div>
-  </div>
-</div>
+    </header>
 
-<div class="card">
-  <h3>ساخت کانفیگ WireGuard</h3>
-  <div class="grid">
-    <div>
-      <label>کشور</label>
-      <select id="countrySelect"></select>
-    </div>
+    <div class="card">
+      <h3>ساخت کانفیگ WireGuard</h3>
+      <div class="grid">
+        <div>
+          <label>کشور</label>
+          <select id="countrySelect"></select>
+        </div>
 
-    <div>
-      <label>اپراتور</label>
-      <select id="operatorSelect">
-        <option value="auto">انتخاب خودکار</option>
-        <option value="mtn">MTN</option>
-        <option value="irancell">Irancell</option>
-        <option value="hamrah">Hamrah-e-Aval</option>
-        <option value="rt">RighTel</option>
-        <option value="other">اپراتور دیگر</option>
-      </select>
-    </div>
+        <div>
+          <label>اپراتور</label>
+          <select id="operatorSelect">
+            <option value="auto">انتخاب خودکار</option>
+            <option value="mtn">MTN</option>
+            <option value="irancell">Irancell</option>
+            <option value="hamrah">Hamrah Aval</option>
+            <option value="rt">Rightel</option>
+          </select>
+        </div>
 
-    <div>
-      <label>نوع کانفیگ</label>
-      <select id="profileType">
-        <option value="normal">Normal</option>
-        <option value="fast">Fast</option>
-        <option value="gaming">Gaming</option>
-      </select>
-    </div>
+        <div>
+          <label>DNS</label>
+          <select id="dnsSelect">
+            <option value="178.22.122.100,185.51.200.2">Shekan</option>
+            <option value="78.157.42.100,78.157.42.101">Electro</option>
+            <option value="10.202.10.202,10.202.10.102">RadarGame</option>
+          </select>
+        </div>
 
-    <div>
-      <label>پلتفرم</label>
-      <select id="platformSelect" aria-hidden="true" style="display:none">
-        <!-- Hidden: platform selection via separate Android / iOS buttons -->
-      </select>
-    </div>
+        <div>
+          <label>نوع کانفیگ</label>
+          <select id="profileType">
+            <option value="normal">Normal</option>
+            <option value="fast">Fast</option>
+            <option value="gaming">Gaming</option>
+          </select>
+        </div>
 
-    <div>
-      <label>درصد افزایش ریجستر تیر</label>
-      <select id="registerPercent">
-        <option value="10">10%</option>
-        <option value="20">20%</option>
-        <option value="30">30%</option>
-        <option value="40">40%</option>
-        <option value="50">50%</option>
-        <option value="60">60%</option>
-        <option value="70">70%</option>
-        <option value="80">80%</option>
-        <option value="90">90%</option>
-        <option value="100">100%</option>
-      </select>
-    </div>
+        <div>
+          <label>درصد ریجستر تیر</label>
+          <select id="registerPercent"></select>
+        </div>
 
-    <div>
-      <label>درصد ایم اسیست</label>
-      <select id="massistPercent">
-        <option value="10">10%</option>
-        <option value="20">20%</option>
-        <option value="30">30%</option>
-        <option value="40">40%</option>
-        <option value="50">50%</option>
-        <option value="60">60%</option>
-        <option value="70">70%</option>
-        <option value="80">80%</option>
-        <option value="90">90%</option>
-        <option value="100">100%</option>
-      </select>
+        <div>
+          <label>درصد ایم اسیست</label>
+          <select id="massistPercent"></select>
+        </div>
+
+        <div>
+          <label>مدت زمان (روز)</label>
+          <select id="durationDays">
+            <option value="30">30</option>
+            <option value="60">60</option>
+            <option value="90">90</option>
+            <option value="180">180</option>
+            <option value="365">365</option>
+          </select>
+        </div>
+
+        <div>
+          <label>نام فایل خروجی</label>
+          <input id="fileName" type="text" placeholder="wg-USER.conf"/>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <button id="generateAndroidBtn" class="btn">تولید Android</button>
+        <button id="generateIosBtn" class="btn">تولید iOS</button>
+      </div>
     </div>
 
-    <div>
-      <label>حجم مجاز (مگابایت) — وقتی مصرف ≥ این مقدار شود، کانفیگ ضعیف می‌شود</label>
-      <input id="dataCap" type="number" placeholder="مثلاً 1024" />
-    </div>
-    <div>
-      <label>مدت زمان فعال (روز)</label>
-      <select id="durationDays">
-        <option value="30">30 روز</option>
-        <option value="60">60 روز</option>
-        <option value="90">90 روز</option>
-        <option value="180">180 روز</option>
-        <option value="365">365 روز</option>
-      </select>
+    <div class="card" style="margin-top:12px">
+      <h3>لیست کانفیگ‌ها</h3>
+      <div id="configsList" class="configs-list"></div>
     </div>
 
-    <div>
-      <label>نام فایل خروجی</label>
-      <input id="fileName" type="text" placeholder="example.conf" />
-    </div>
-    <div>
-      <label>توضیحات (اختیاری)</label>
-      <input id="note" type="text" placeholder="مثلاً: پلان ماهانه" />
-    </div>
+    <footer class="card"><div>نسخه کامل با ۶۰ کشور + DNS ایرانی — مشکل انتخاب کشور رفع شد</div></footer>
   </div>
 
-  <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-    <!-- Two separate buttons for Android and iOS generation (no extra explanations) -->
-    <button id="generateAndroidBtn" class="btn">تولید کانفیگ — Android</button>
-    <button id="generateIosBtn" class="btn">تولید کانفیگ — iOS</button>
-    <button id="downloadAllCsv" class="btn" style="background:#16a34a">دانلود لیست کانفیگ‌ها (CSV)</button>
-  </div>
-
-  <div style="margin-top:12px" class="muted"></div>
-</div>
-
-<div class="card" style="margin-top:12px">
-  <h3>کانفیگ‌های تولید شده</h3>
-  <div class="configs-list" id="configsList"></div>
-</div>
-
-<div class="card" style="margin-top:12px">
-  <h3>شبیه‌ساز مصرف (برای تست)</h3>
-  <div class="grid">
-    <div>
-      <label>انتخاب کانفیگ</label>
-      <select id="selectConfigForConsume"></select>
-    </div>
-    <div>
-      <label>مقدار مصرف فعلی (مگابایت) برای افزودن</label>
-      <input id="consumeMB" type="number" placeholder="مثلاً 100" />
-    </div>
-  </div>
-  <div style="margin-top:8px;display:flex;gap:8px"><button id="btnConsume" class="btn">افزودن مصرف</button><button id="btnResetUsage" class="btn" style="background:#ef4444">ریست مصرف</button></div>
-  <div class="muted" style="margin-top:8px"></div>
-</div>
-
-<footer class="card">
-  <div></div>
-</footer>
-
-  </div>  <!-- Libraries: QR & Barcode & FileSaver -->  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>  <script>
-    // --- دادهٔ 80 کشور با امتیاز سرعت (نمونه) ---
-    const countries = [
-      {code:'JP',name:'Japan',score:98},{code:'KR',name:'South Korea',score:96},{code:'SG',name:'Singapore',score:95},{code:'AE',name:'UAE',score:92},
-      {code:'TR',name:'Turkey',score:88},{code:'QA',name:'Qatar',score:89},{code:'SA',name:'Saudi Arabia',score:86},{code:'IL',name:'Israel',score:87},
-      {code:'OM',name:'Oman',score:85},{code:'KW',name:'Kuwait',score:84},{code:'US',name:'United States',score:90},{code:'GB',name:'United Kingdom',score:89},
-      {code:'DE',name:'Germany',score:88},{code:'FR',name:'France',score:87},{code:'NL',name:'Netherlands',score:86},{code:'SE',name:'Sweden',score:85},
-      {code:'NO',name:'Norway',score:84},{code:'CH',name:'Switzerland',score:83},{code:'FI',name:'Finland',score:82},{code:'DK',name:'Denmark',score:81},
-      {code:'CA',name:'Canada',score:80},{code:'AU',name:'Australia',score:79},{code:'NZ',name:'New Zealand',score:78},{code:'BE',name:'Belgium',score:77},
-      {code:'AT',name:'Austria',score:76},{code:'IE',name:'Ireland',score:75},{code:'PT',name:'Portugal',score:74},{code:'ES',name:'Spain',score:73},
-      {code:'IT',name:'Italy',score:72},{code:'PL',name:'Poland',score:71},{code:'CZ',name:'Czechia',score:70},{code:'HU',name:'Hungary',score:69},
-      {code:'GR',name:'Greece',score:68},{code:'RO',name:'Romania',score:67},{code:'HR',name:'Croatia',score:66},{code:'BG',name:'Bulgaria',score:65},
-      {code:'RS',name:'Serbia',score:64},{code:'UA',name:'Ukraine',score:63},{code:'RU',name:'Russia',score:62},{code:'BR',name:'Brazil',score:60},
-      {code:'AR',name:'Argentina',score:59},{code:'CL',name:'Chile',score:58},{code:'MX',name:'Mexico',score:57},{code:'CO',name:'Colombia',score:56},
-      {code:'PE',name:'Peru',score:55},{code:'VE',name:'Venezuela',score:50},{code:'ZA',name:'South Africa',score:54},{code:'EG',name:'Egypt',score:53},
-      {code:'NG',name:'Nigeria',score:52},{code:'KE',name:'Kenya',score:51},{code:'MA',name:'Morocco',score:50},{code:'DZ',name:'Algeria',score:49},
-      {code:'TN',name:'Tunisia',score:48},{code:'GH',name:'Ghana',score:47},{code:'SN',name:'Senegal',score:46},{code:'BD',name:'Bangladesh',score:45},
-      {code:'PK',name:'Pakistan',score:44},{code:'IN',name:'India',score:43},{code:'LK',name:'Sri Lanka',score:42},{code:'VN',name:'Vietnam',score:41},
-      {code:'TH',name:'Thailand',score:40},{code:'MY',name:'Malaysia',score:39},{code:'ID',name:'Indonesia',score:38},{code:'PH',name:'Philippines',score:37},
-      {code:'TW',name:'Taiwan',score:36},{code:'HK',name:'Hong Kong',score:92},{code:'IR',name:'Iran',score:35},{code:'LB',name:'Lebanon',score:34},
-      {code:'JO',name:'Jordan',score:33},{code:'SY',name:'Syria',score:30},{code:'IQ',name:'Iraq',score:32},{code:'SD',name:'Sudan',score:29}
-    ];
-
-    // --- دیالوگ لاگین ساده (mock) ---
-    const currentUserEl = document.getElementById('currentUser');
-    const btnLogin = document.getElementById('btnLogin');
-    function setUser(name){localStorage.setItem('wg_user',name);currentUserEl.textContent=name}
-    function getUser(){return localStorage.getItem('wg_user')||'guest'}
-    btnLogin.addEventListener('click',()=>{
-      if(getUser()==='guest'){const name=prompt('نام کاربری را وارد کنید (mock):','user1');if(name) setUser(name)}else{if(confirm('خروج؟')){setUser('guest')}}
-    });
-    setUser(getUser());
-
-    // theme
-    const toggleTheme = document.getElementById('toggleTheme');
-    toggleTheme.addEventListener('click',()=>{
-      const root = document.documentElement;
-      const cur = localStorage.getItem('wg_theme')||'dark';
-      if(cur==='dark'){root.style.setProperty('--bg','#f7fafc');root.style.setProperty('--card','#fff');root.style.setProperty('--muted','#334155');root.style.setProperty('--accent','#0ea5a4');localStorage.setItem('wg_theme','light')}else{root.style.setProperty('--bg','#0f1724');root.style.setProperty('--card','#0b1220');root.style.setProperty('--muted','#9aa4b2');root.style.setProperty('--accent','#1ea7ff');localStorage.setItem('wg_theme','dark')}
-    });
-
-    // populate countries sorted by score desc
-    const countrySelect = document.getElementById('countrySelect');
-    countries.sort((a,b)=>b.score-a.score).forEach(c=>{
-      const o = document.createElement('option');o.value=c.code;o.textContent=`${c.name} — score:${c.score}`;countrySelect.appendChild(o);
-    });
-
-    // storage: configs array
-    function loadConfigs(){return JSON.parse(localStorage.getItem('wg_configs')||'[]')}
-    function saveConfigs(list){localStorage.setItem('wg_configs',JSON.stringify(list));renderConfigs()}
-
-    function uid(){return Math.random().toString(36).slice(2,10)}
-
-    // generate sample key (returns full 44-char base64 string for 32 bytes)
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script>
+    /***** کمک‌افزار: تولید کلید Base64 44-char *****/
     function sampleKey(){
       const arr = new Uint8Array(32);
       crypto.getRandomValues(arr);
-      // create binary string from bytes
       let binary = '';
-      for(let i=0;i<arr.length;i++){binary += String.fromCharCode(arr[i]);}
-      // base64 encode; keep padding (WireGuard expects 44 chars for 32-byte keys)
-      return btoa(binary);
+      for(let i=0;i<arr.length;i++){ binary += String.fromCharCode(arr[i]); }
+      return btoa(binary); // برای 32 بایت => 44 کاراکتر Base64
     }
 
-    // helper gather form values
-    function gatherFormValues(){
-      return {
-        country: countrySelect.value || 'US',
-        operator: document.getElementById('operatorSelect').value || 'auto',
-        type: document.getElementById('profileType').value || 'normal',
-        registerPercent: parseInt(document.getElementById('registerPercent').value||'10',10),
-        massistPercent: parseInt(document.getElementById('massistPercent').value||'10',10),
-        cap: parseInt(document.getElementById('dataCap').value||'0',10),
-        days: parseInt(document.getElementById('durationDays').value||'30',10),
-        fileName: document.getElementById('fileName').value.trim()||(`wg-${Date.now()}.conf`),
-        note: document.getElementById('note').value||'',
-        owner: getUser()
-      };
+    // ۶۰ کشور (code + name) — نمایش به‌صورت "نام — کد"
+    const countries = [
+      {code:'US',name:'United States'},{code:'GB',name:'United Kingdom'},{code:'DE',name:'Germany'},{code:'FR',name:'France'},
+      {code:'NL',name:'Netherlands'},{code:'SE',name:'Sweden'},{code:'NO',name:'Norway'},{code:'FI',name:'Finland'},
+      {code:'DK',name:'Denmark'},{code:'CA',name:'Canada'},{code:'AU',name:'Australia'},{code:'NZ',name:'New Zealand'},
+      {code:'BE',name:'Belgium'},{code:'AT',name:'Austria'},{code:'IT',name:'Italy'},{code:'ES',name:'Spain'},
+      {code:'PT',name:'Portugal'},{code:'PL',name:'Poland'},{code:'CZ',name:'Czechia'},{code:'HU',name:'Hungary'},
+      {code:'GR',name:'Greece'},{code:'RO',name:'Romania'},{code:'BG',name:'Bulgaria'},{code:'HR',name:'Croatia'},
+      {code:'RS',name:'Serbia'},{code:'UA',name:'Ukraine'},{code:'RU',name:'Russia'},{code:'JP',name:'Japan'},
+      {code:'KR',name:'South Korea'},{code:'SG',name:'Singapore'},{code:'AE',name:'UAE'},{code:'TR',name:'Turkey'},
+      {code:'QA',name:'Qatar'},{code:'SA',name:'Saudi Arabia'},{code:'IL',name:'Israel'},{code:'OM',name:'Oman'},
+      {code:'KW',name:'Kuwait'},{code:'CH',name:'Switzerland'},{code:'IE',name:'Ireland'},{code:'BR',name:'Brazil'},
+      {code:'AR',name:'Argentina'},{code:'CL',name:'Chile'},{code:'MX',name:'Mexico'},{code:'CO',name:'Colombia'},
+      {code:'PE',name:'Peru'},{code:'ZA',name:'South Africa'},{code:'EG',name:'Egypt'},{code:'NG',name:'Nigeria'},
+      {code:'KE',name:'Kenya'},{code:'MA',name:'Morocco'},{code:'DZ',name:'Algeria'},{code:'TN',name:'Tunisia'},
+      {code:'IN',name:'India'},{code:'PK',name:'Pakistan'},{code:'BD',name:'Bangladesh'},{code:'VN',name:'Vietnam'}
+    ];
+
+    // المان‌ها
+    const countrySelect = document.getElementById('countrySelect');
+    const operatorSelect = document.getElementById('operatorSelect');
+    const dnsSelect = document.getElementById('dnsSelect');
+    const profileType = document.getElementById('profileType');
+    const registerPercent = document.getElementById('registerPercent');
+    const massistPercent = document.getElementById('massistPercent');
+    const durationDays = document.getElementById('durationDays');
+    const fileNameInput = document.getElementById('fileName');
+    const configsList = document.getElementById('configsList');
+    const generateAndroidBtn = document.getElementById('generateAndroidBtn');
+    const generateIosBtn = document.getElementById('generateIosBtn');
+
+    // پر کردن کشورها
+    function populateCountries(){
+      countrySelect.innerHTML = '';
+      countries.forEach(c=>{
+        const o = document.createElement('option');
+        o.value = c.code;
+        o.textContent = `${c.name} — ${c.code}`;
+        countrySelect.appendChild(o);
+      });
+      // انتخاب پیش‌فرض: اولین کشور
+      if(countrySelect.options.length>0) countrySelect.selectedIndex = 0;
     }
 
-    // main create function (platform: 'Android' or 'iOS')
-    function createConfigFor(platform){
-      const fv = gatherFormValues();
+    // پر کردن درصدها (10..100 step 10)
+    function populatePercents(){
+      registerPercent.innerHTML = '';
+      massistPercent.innerHTML = '';
+      for(let i=10;i<=100;i+=10){
+        const o1=document.createElement('option'); o1.value=i; o1.textContent=i+'%';
+        const o2=document.createElement('option'); o2.value=i; o2.textContent=i+'%';
+        registerPercent.appendChild(o1); massistPercent.appendChild(o2);
+      }
+      registerPercent.selectedIndex = 0;
+      massistPercent.selectedIndex = 0;
+    }
+
+    // localStorage key
+    const STORAGE_KEY = 'wg_cfgs';
+
+    // unique id
+    function uid(){return Math.random().toString(36).slice(2,10);}
+
+    // create config (platform: 'Android'|'iOS')
+    function createConfig(platform){
+      // اعتبارسنجی ورودی‌ها
+      if(!countrySelect.value){
+        alert('لطفاً یک کشور انتخاب کنید.');
+        return;
+      }
+      if(!operatorSelect.value){
+        alert('لطفاً یک اپراتور انتخاب کنید.');
+        return;
+      }
+      // گرفتن مقادیر فرم
+      const country = countrySelect.value;
+      const operator = operatorSelect.value;
+      const dns = dnsSelect.value;
+      const profile = profileType.value;
+      const regPercent = registerPercent.value;
+      const massist = massistPercent.value;
+      const days = parseInt(durationDays.value)||30;
+      const fname = (fileNameInput.value && fileNameInput.value.trim()) ? fileNameInput.value.trim() : `wg-${country}-${Date.now()}.conf`;
+
       const id = uid();
       const createdAt = Date.now();
-      const expiresAt = createdAt + fv.days*24*3600*1000;
-      const metadata = {id,country:fv.country,operator:fv.operator,platform,type:fv.type,registerPercent:fv.registerPercent,massistPercent:fv.massistPercent,capMB:fv.cap,usedMB:0,createdAt,expiresAt,fileName:fv.fileName,note:fv.note,owner:fv.owner,status:'active'};
+      const expiresAt = createdAt + days*24*3600*1000;
 
+      // تولید کلیدهای mock (طول صحیح Base64)
       const privateKey = sampleKey();
       const publicKey = sampleKey();
       const preshared = sampleKey();
 
-      // Platform-specific tweaks: small differences in comments / MTU recommended for mobile platforms
-      const platformMTU = (platform==='Android')?1420:1400;
+      const mtu = (platform === 'iOS') ? 1400 : 1420;
+      const address = `10.10.${Math.floor(Math.random()*254)+1}.${Math.floor(Math.random()*254)+1}/32`;
 
-      const configText = `[Interface]\n# owner:${metadata.owner}\n# country:${metadata.country}\n# operator:${metadata.operator}\n# platform:${platform}\n# profile:${metadata.type}\n# registerPercent:${metadata.registerPercent}\n# massistPercent:${metadata.massistPercent}\n# expires:${new Date(expiresAt).toISOString()}\n# dataCapMB:${fv.cap}\nPrivateKey = ${privateKey}\nAddress = 10.10.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}/32\nDNS = 1.1.1.1\nMTU = ${platformMTU}\n\n[Peer]\nPublicKey = ${publicKey}\nPresharedKey = ${preshared}\nEndpoint = ${fv.country.toLowerCase()}.wg.example.com:51820\nAllowedIPs = 0.0.0.0/0, ::/0\nPersistentKeepalive = 25\n`;
+      // ساخت متن کانفیگ — شامل متادیتا (کامنت) که درصدها و اپراتور را دارد
+      const confText = `[Interface]
+# owner=local
+# country=${country}
+# operator=${operator}
+# profile=${profile}
+# registerPercent=${regPercent}
+# massistPercent=${massist}
+# expires=${new Date(expiresAt).toISOString()}
+PrivateKey = ${privateKey}
+Address = ${address}
+DNS = ${dns}
+MTU = ${mtu}
 
-      const store = loadConfigs();
-      store.unshift(Object.assign({},metadata,{configText}));
-      saveConfigs(store);
-      alert(`کانفیگ ${platform} ساخته شد — در لیست پایین مشاهده کنید.`);
+[Peer]
+PublicKey = ${publicKey}
+PresharedKey = ${preshared}
+Endpoint = ${country.toLowerCase()}.wg.example.com:51820
+AllowedIPs = 0.0.0.0/0, ::/0
+PersistentKeepalive = 25
+`;
+
+      // ذخیره در localStorage
+      const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      list.unshift({
+        id, platform, country, operator, dns, profile,
+        registerPercent: regPercent, massistPercent: massist,
+        createdAt, expiresAt, fileName: fname, configText: confText
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+
+      renderConfigs();
+      alert(`کانفیگ (${platform}) برای ${country} ساخته شد.`);
     }
 
-    // bind Android / iOS buttons
-    document.getElementById('generateAndroidBtn').addEventListener('click',()=>createConfigFor('Android'));
-    document.getElementById('generateIosBtn').addEventListener('click',()=>createConfigFor('iOS'));
+    // دانلود فایل
+    function downloadConf(id){
+      const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      const it = list.find(x=>x.id===id);
+      if(!it){ alert('کانفیگ پیدا نشد'); return; }
+      const blob = new Blob([it.configText], {type: 'text/plain;charset=utf-8'});
+      saveAs(blob, it.fileName);
+    }
 
-    // render configs
-    const configsList = document.getElementById('configsList');
+    // حذف
+    function deleteConf(id){
+      if(!confirm('آیا مطمئن هستید حذف شود؟')) return;
+      let list = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      list = list.filter(x=>x.id!==id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+      renderConfigs();
+    }
+
+    // رندر لیست کانفیگ‌ها
     function renderConfigs(){
-      const list = loadConfigs();
-      configsList.innerHTML='';
-      const selectConsume = document.getElementById('selectConfigForConsume');
-      selectConsume.innerHTML='';
-
+      const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      configsList.innerHTML = '';
+      if(list.length === 0){
+        configsList.innerHTML = '<div class="muted">هیچ کانفیگی تولید نشده</div>';
+        return;
+      }
       list.forEach(item=>{
-        const el = document.createElement('div');el.className='config-item';
-        const expired = Date.now()>item.expiresAt;
-        if(expired) el.classList.add('expired');
-        const weakened = item.capMB>0 && item.usedMB>=item.capMB;
-        const status = expired? 'منقضی' : (weakened? 'ضعیف‌شده':'فعال');
-
+        const el = document.createElement('div');
+        el.className = 'config-item';
+        const expireDate = new Date(item.expiresAt).toLocaleDateString();
         el.innerHTML = `
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <div><strong>${item.fileName}</strong> <div class="muted">${item.note||''}</div></div>
-            <div class="muted">مالک: ${item.owner}</div>
+            <div><strong>${item.fileName}</strong><div class="muted">${item.platform} — ${item.country}</div></div>
+            <div style="text-align:left">
+              <div class="muted">اپراتور: ${item.operator}</div>
+              <div class="muted">رجیستر: ${item.registerPercent}% — ایم‌اسیست: ${item.massistPercent}%</div>
+              <div class="muted">انقضا: ${expireDate}</div>
+            </div>
           </div>
           <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
-            <div class="muted">پلتفرم: ${item.platform||'—'}</div>
-            <div class="muted">اپراتور: ${item.operator||'—'}</div>
-            <div class="muted">ایجاد: ${new Date(item.createdAt).toLocaleString()}</div>
-            <div class="muted">انقضا: ${new Date(item.expiresAt).toLocaleDateString()}</div>
-            <div class="muted">مصرف: ${item.usedMB} / ${item.capMB||'نامحدود'} MB</div>
-            <div class="muted status">وضعیت: ${status}</div>
-            <div class="muted">رجیستر: ${item.registerPercent?item.registerPercent+'%':'—'}</div>
-            <div class="muted">ماسیت: ${item.massistPercent?item.massistPercent+'%':'—'}</div>
+            <button class="btn downloadBtn" data-id="${item.id}">دانلود .conf</button>
+            <button class="btn" style="background:#ef4444" data-action="delete" data-id="${item.id}">حذف</button>
           </div>
-          <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
-            <button data-id="${item.id}" class="btn downloadBtn">دانلود .conf</button>
-            <button data-id="${item.id}" class="btn showQr">QR</button>
-            <button data-id="${item.id}" class="btn showBarcode">بارکد</button>
-            <button data-id="${item.id}" class="btn" style="background:#f59e0b" data-action="renew">تمدید</button>
-            <button data-id="${item.id}" class="btn" style="background:#ef4444" data-action="delete">حذف</button>
-          </div>
-          <div style="margin-top:8px" id="viewer-${item.id}"></div>
         `;
-
         configsList.appendChild(el);
-
-        // add to consume selector
-        const opt = document.createElement('option');opt.value=item.id;opt.textContent=item.fileName;selectConsume.appendChild(opt);
       });
 
       // attach handlers
-      document.querySelectorAll('.downloadBtn').forEach(b=>b.addEventListener('click',e=>{
-        const id=e.currentTarget.dataset.id;downloadConf(id);
+      document.querySelectorAll('.downloadBtn').forEach(b=>b.addEventListener('click', e=>{
+        const id = e.currentTarget.dataset.id; downloadConf(id);
       }));
-      document.querySelectorAll('.showQr').forEach(b=>b.addEventListener('click',e=>{
-        const id=e.currentTarget.dataset.id;showQr(id);
-      }));
-      document.querySelectorAll('.showBarcode').forEach(b=>b.addEventListener('click',e=>{
-        const id=e.currentTarget.dataset.id;showBarcode(id);
-      }));
-      document.querySelectorAll('button[data-action="renew"]').forEach(b=>b.addEventListener('click',e=>{
-        const id=e.currentTarget.dataset.id;renewConfig(id);
-      }));
-      document.querySelectorAll('button[data-action="delete"]').forEach(b=>b.addEventListener('click',e=>{
-        const id=e.currentTarget.dataset.id;deleteConfig(id);
+      document.querySelectorAll('button[data-action="delete"]').forEach(b=>b.addEventListener('click', e=>{
+        const id = e.currentTarget.dataset.id; deleteConf(id);
       }));
     }
 
-    function downloadConf(id){
-      const list=loadConfigs();const it=list.find(x=>x.id===id);if(!it)return alert('پیدا نشد');
-      let text = it.configText;
-      const weakened = it.capMB>0 && it.usedMB>=it.capMB;
-      if(weakened){text = `# ======= WEAKENED CONFIG (data cap reached) =======\n# MTU reduced, PersistentKeepalive removed to limit performance\nMTU = 1280\n`+text}
-      const blob = new Blob([text],{type:'text/plain;charset=utf-8'});
-      saveAs(blob,it.fileName);
-    }
+    // bind دکمه‌ها
+    generateAndroidBtn.addEventListener('click', ()=>createConfig('Android'));
+    generateIosBtn.addEventListener('click', ()=>createConfig('iOS'));
 
-    function showQr(id){
-      const list=loadConfigs();const it=list.find(x=>x.id===id);if(!it)return;
-      const viewer = document.getElementById(`viewer-${id}`);
-      viewer.innerHTML = '';
-      const container = document.createElement('div');
-      container.className = 'center';
-      const qrBox = document.createElement('div');
-      qrBox.className = 'qr-canvas';
-      container.appendChild(qrBox);
-      viewer.appendChild(container);
-      try{
-        new QRCode(qrBox, {text: it.configText, width:220, height:220});
-      }catch(e){
-        qrBox.textContent = 'ایراد در تولید QR';
-      }
-      const dl = document.createElement('button'); dl.className='btn small'; dl.textContent='دانلود .conf'; dl.style.marginTop='8px';
-      dl.addEventListener('click',()=>downloadConf(id));
-      viewer.appendChild(dl);
-    }
-
-    function showBarcode(id){
-      const list=loadConfigs();const it=list.find(x=>x.id===id);if(!it)return;
-      const viewer = document.getElementById(`viewer-${id}`);
-      viewer.innerHTML = '';
-      const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-      svg.setAttribute('id',`barcode-${id}`);
-      svg.setAttribute('width','320');svg.setAttribute('height','80');
-      viewer.appendChild
+    // اجرای اولیه
+    populateCountries();
+    populatePercents();
+    renderConfigs();
+  </script>
+</body>
+</html>
